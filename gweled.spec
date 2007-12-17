@@ -23,7 +23,6 @@ BuildRequires: libglade2.0-devel
 BuildRequires: libmikmod-devel
 BuildRequires: ImageMagick
 BuildRequires: desktop-file-utils
-BuildRoot: %{_tmppath}/%{name}-buildroot
 
 %description
 Gweled is a Gnome version of a popular PalmOS/Windows/Java game called
