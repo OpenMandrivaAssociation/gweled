@@ -47,12 +47,6 @@ export LDFLAGS="-export-dynamic"
 %install
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
-install -d %buildroot{%_menudir,%_liconsdir,%_miconsdir,%_iconsdir}
-cat << EOF > $RPM_BUILD_ROOT/%{_menudir}/%name
-?package(%name):command="%name" \
-icon="%name.png" needs="X11" section="More Applications/Games/Puzzles" \
-title="Gweled" longtitle="Clone of Bejeweled" xdg="true"
-EOF
 
 desktop-file-install --vendor="" \
   --remove-category="Application" \
@@ -87,6 +81,5 @@ rm -rf $RPM_BUILD_ROOT
 %_iconsdir/%name.png
 %_liconsdir/%name.png
 %_miconsdir/%name.png
-%_menudir/%name
 
 
