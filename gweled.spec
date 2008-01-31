@@ -1,6 +1,6 @@
 %define name gweled
 %define version 0.7
-%define release %mkrel 4
+%define release %mkrel 5
 
 Summary: Clone of Bejeweled, align 3 crystals in a row to make them disappear
 Name: %{name}
@@ -14,6 +14,7 @@ Patch: gweled-0.7-fix-double-free.patch
 Patch1: gweled-0.7-mikmod-disable-disk-writers.patch
 # gw use gint instead of gchar for the board
 Patch2: gweled-ppc.diff
+Patch3: gweled-0.7-desktopentry.patch
 License: GPL
 Group: Games/Puzzles
 URL: http://sebdelestaing.free.fr/gweled/
@@ -22,7 +23,6 @@ BuildRequires: libgnomeui2-devel
 BuildRequires: libglade2.0-devel
 BuildRequires: libmikmod-devel
 BuildRequires: ImageMagick
-BuildRequires: desktop-file-utils
 BuildRoot: %{_tmppath}/%{name}-buildroot
 
 %description
@@ -37,7 +37,7 @@ left.
 %patch -p1 -b .double-free
 %patch1 -p1 -b .disk-writer
 %patch2 -p0 -b .ppc
-
+%patch3 -p1
 
 %build
 export LDFLAGS="-export-dynamic"
@@ -48,13 +48,8 @@ export LDFLAGS="-export-dynamic"
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 
-desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --add-category="X-MandrivaLinux-MoreApplications-Games-Puzzles" \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
-
-
 #icons
+mkdir -p %buildroot/{%_liconsdir,%_miconsdir}
 ln -s %_datadir/pixmaps/%name.png %buildroot/%_liconsdir
 convert -scale 32x32 %name.png %buildroot/%_iconsdir/%name.png
 convert -scale 16x16 %name.png %buildroot/%_miconsdir/%name.png
