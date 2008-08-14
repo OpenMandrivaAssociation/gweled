@@ -1,6 +1,6 @@
 %define name gweled
 %define version 0.7
-%define release %mkrel 7
+%define release %mkrel 6
 
 Summary: Clone of Bejeweled, align 3 crystals in a row to make them disappear
 Name: %{name}
@@ -15,7 +15,7 @@ Patch1: gweled-0.7-mikmod-disable-disk-writers.patch
 # gw use gint instead of gchar for the board
 Patch2: gweled-ppc.diff
 Patch3: gweled-0.7-desktopentry.patch
-License: GPL
+License: GPLv2+
 Group: Games/Puzzles
 URL: http://sebdelestaing.free.fr/gweled/
 BuildRequires: librsvg-devel
@@ -76,7 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 %_datadir/pixmaps/%name.png
 %_datadir/pixmaps/%name
 %_datadir/%name
-%attr(664, games, games) %_var/lib/games/%name.easy.scores
+%attr(664, games, games) %_localstatedir/games/%name.easy.scores
 %_iconsdir/%name.png
 %_liconsdir/%name.png
 %_miconsdir/%name.png
