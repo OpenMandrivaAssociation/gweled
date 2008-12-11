@@ -22,7 +22,7 @@ BuildRequires: librsvg-devel
 BuildRequires: libgnomeui2-devel
 BuildRequires: libglade2.0-devel
 BuildRequires: libmikmod-devel
-BuildRequires: ImageMagick
+BuildRequires: imagemagick
 BuildRoot: %{_tmppath}/%{name}-buildroot
 
 %description
