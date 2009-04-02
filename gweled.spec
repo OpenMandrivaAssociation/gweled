@@ -1,6 +1,6 @@
 %define name gweled
 %define version 0.7
-%define release %mkrel 6
+%define release %mkrel 7
 
 Summary: Clone of Bejeweled, align 3 crystals in a row to make them disappear
 Name: %{name}
@@ -36,8 +36,8 @@ left.
 %setup -q
 %patch -p1 -b .double-free
 %patch1 -p1 -b .disk-writer
-%patch2 -p0 -b .ppc
-%patch3 -p1
+%patch2 -p0 -F 2 -b .ppc
+%patch3 -p1 -b .xdg
 
 %build
 export LDFLAGS="-export-dynamic"
@@ -60,9 +60,6 @@ rm -rf $RPM_BUILD_ROOT
 %if %mdkversion < 200900
 %post
 %update_menus
-%endif
-
-%if %mdkversion < 200900
 %postun
 %clean_menus
 %endif
