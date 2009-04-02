@@ -36,7 +36,7 @@ left.
 %setup -q
 %patch -p1 -b .double-free
 %patch1 -p1 -b .disk-writer
-%patch2 -p0 -F 2 -b .ppc
+%patch2 -p1 -b .ppc
 %patch3 -p1 -b .xdg
 
 %build
