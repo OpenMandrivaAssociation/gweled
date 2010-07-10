@@ -1,28 +1,19 @@
 %define name gweled
-%define version 0.7
-%define release %mkrel 8
+%define version 0.8
+%define release %mkrel 1
 
 Summary: Clone of Bejeweled, align 3 crystals in a row to make them disappear
 Name: %{name}
 Version: %{version}
 Release: %{release}
-Source0: http://sebdelestaing.free.fr/gweled/Release/%{name}-%{version}.tar.bz2
-# gw debian patches:
-# gw fix double free
-Patch: gweled-0.7-fix-double-free.patch
-# gw don't load mikmod's disk writer output driver
-Patch1: gweled-0.7-mikmod-disable-disk-writers.patch
-# gw use gint instead of gchar for the board
-Patch2: gweled-ppc.diff
-Patch3: gweled-0.7-desktopentry.patch
+Source0: http://launchpad.net/%name/trunk/%version/+download/%{name}-%{version}.tar.gz
 License: GPLv2+
 Group: Games/Puzzles
-URL: http://sebdelestaing.free.fr/gweled/
+URL: https://launchpad.net/gweled
 BuildRequires: librsvg-devel
-BuildRequires: libgnomeui2-devel
-BuildRequires: libglade2.0-devel
+BuildRequires: gtk+2-devel
 BuildRequires: libmikmod-devel
-BuildRequires: imagemagick
+BuildRequires: intltool
 BuildRoot: %{_tmppath}/%{name}-buildroot
 
 %description
@@ -34,10 +25,6 @@ left.
 
 %prep
 %setup -q
-%patch -p1 -b .double-free
-%patch1 -p1 -b .disk-writer
-%patch2 -p1 -b .ppc
-%patch3 -p1 -b .xdg
 
 %build
 export LDFLAGS="-export-dynamic"
@@ -47,35 +34,19 @@ export LDFLAGS="-export-dynamic"
 %install
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
-
-#icons
-mkdir -p %buildroot/{%_liconsdir,%_miconsdir}
-ln -s %_datadir/pixmaps/%name.png %buildroot/%_liconsdir
-convert -scale 32x32 %name.png %buildroot/%_iconsdir/%name.png
-convert -scale 16x16 %name.png %buildroot/%_miconsdir/%name.png
+%find_lang %name
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%if %mdkversion < 200900
-%post
-%update_menus
-%postun
-%clean_menus
-%endif
-
-%files
+%files -f %name.lang
 %defattr(-,root,root)
 %doc NEWS AUTHORS
 %attr(2555, root, games) %_bindir/%name
 %_datadir/applications/%name.desktop
 %_datadir/sounds/%name
-%_datadir/pixmaps/%name.png
-%_datadir/pixmaps/%name
 %_datadir/%name
-%attr(664, games, games) %_localstatedir/games/%name.easy.scores
-%_iconsdir/%name.png
-%_liconsdir/%name.png
-%_miconsdir/%name.png
-
+%_datadir/pixmaps/%name
+%_datadir/icons/hicolor/*/apps/%name.*
+%attr(664, games, games) %_localstatedir/games/%name.*.scores
 
