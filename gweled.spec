@@ -7,6 +7,8 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 Source0: http://launchpad.net/%name/trunk/%version/+download/%{name}-%{version}.tar.gz
+#open without mode will cause a build error
+Patch0: gweled-0.9.1-fix-open.patch
 License: GPLv2+
 Group: Games/Puzzles
 URL: https://launchpad.net/gweled
@@ -25,6 +27,7 @@ left.
 
 %prep
 %setup -q
+%apply_patches
 
 %build
 export LDFLAGS="-export-dynamic"
