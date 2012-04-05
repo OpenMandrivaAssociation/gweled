@@ -1,6 +1,6 @@
 %define name gweled
 %define version 0.9.1
-%define release %mkrel 1
+%define release %mkrel 2
 
 Summary: Clone of Bejeweled, align 3 crystals in a row to make them disappear
 Name: %{name}
